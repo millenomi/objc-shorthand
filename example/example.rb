@@ -1,4 +1,4 @@
-require '../objc_shorthand'
+require 'objc_shorthand'
 
 objc_class :SomeNiceCell do
 	subclass_of :ILNIBTableViewCell
@@ -8,6 +8,6 @@ objc_class :SomeNiceCell do
 	surnameLabel :UILabel, :outlet, :will_set, :did_set
 	editDelegate 'id <SomeNiceCellEditDelegate>'
 	
-	selectedForKilling :bool, :will_set
+	selectedForKilling :bool, :will_set, getter(:isSelectedForKilling)
 	age :int
 end

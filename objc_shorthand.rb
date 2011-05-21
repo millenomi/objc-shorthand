@@ -29,6 +29,10 @@ class ObjCClass
 		ivar name, type, *options
 	end
 	
+	def getter(name)
+		return ObjCIvarGetterNameOption.new(name)
+	end
+	
 	attr_reader :objc_name, :objc_ivars, :objc_frameworks, :objc_imports, :objc_superclass_name
 end
 
@@ -50,7 +54,7 @@ class ObjCIvar
 	attr_reader :name, :objc_type, :options
 end
 
-OBJC_CLASSES = {}
+OBJC_CLASSES = {} unless 
 
 def objc_class name, &block
 	x = ObjCClass.new(name)

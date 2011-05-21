@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'mustache'
-require File.join(File.dirname(__FILE__), 'objc_shorthand')
+require 'objc_shorthand'
 
 # -------------
 
@@ -15,7 +15,7 @@ class ObjCClassTemplate < Mustache
 	end
 	
 	def ivars
-		@cls.objc_ivars.map { |name, x| puts x.inspect; ObjCIvarTemplate.new(x) }
+		@cls.objc_ivars.map { |name, x| ObjCIvarTemplate.new(x) }
 	end
 	
 	def ivars_with_properties; ivars; end
@@ -94,7 +94,6 @@ class ObjCIvarTemplate
 	
 	def property_modifiers
 		s = []
-		puts "Is #{ivar.name} object? #{is_object_type}"
 		
 		marker = memory_management_marker
 		s << marker if marker

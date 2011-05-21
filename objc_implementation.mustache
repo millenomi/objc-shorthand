@@ -56,7 +56,16 @@
 	{{/did_set}}
 	
 	}
-}	
+}
+
+{{#will_set}}
+- (void) {{{property_name}}}WillChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
+{}
+{{/will_set}}
+{{#did_set}}
+- (void) {{{property_name}}}DidChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
+{}
+{{/did_set}}
 	{{/needs_explicit_setter}}
 {{/ivars_with_properties}}
 
