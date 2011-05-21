@@ -119,7 +119,9 @@ The rest of the parameters form the options for the ivar. The generator understa
 
 * `:atomic`: Marks a property as atomic. By default, all properties are generated nonatomic. You can't mix this and `:will_set`, `:did_set` or anything else that requires generating an explicit accessor.
 
-* `:will_set`, `:did_set`: Generate override points before and after a property's ivar is assigned in the setter. This will generate an explicit accessor implementation (not `@synthesize`).
+* `:will_set`, `:did_set`: Generate override points before and after a property's ivar is assigned in the setter. This will generate an explicit setter accessor implementation (not `@synthesize`).
+
+* `:will_get`: Generate override point before the property accessor will return the property's value. This will generate an explicit getter accessor implementation (not `@synthesize`).
 
 * `getter(name)`: Indicates that you want the getter to have a different name. Note that this is a function call, not a symbol. Eg:
 	
