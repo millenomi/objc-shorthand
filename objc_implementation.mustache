@@ -14,18 +14,39 @@
 
 - (void) dealloc;
 {
-	{{#ivars_with_properties}}
+	{{#ivars_with_properties_without_ro}}
 	self.{{{property_name}}} = nil;
-	{{/ivars_with_properties}}
+	{{/ivars_with_properties_without_ro}}
 	
-	{{#ivars_without_properties}}
+	{{#ivars_without_properties_or_with_ro}}
+	{{^is_assign}}
 	[{{{ivar_name}}} release];
-	{{/ivars_without_properties}}
+	{{/is_assign}}
+	{{#is_assign}}
+	// {{{ivar_name}}} is assigned
+	{{/is_assign}}
+	{{/ivars_without_properties_or_with_ro}}
 	
 	[super dealloc];
 }
 
 {{#ivars_with_properties}}
+	{{#needs_explicit_getter}}
+- ({{{ivar_type}}}) {{{property_name}}};
+{
+	{{#will_get}}
+	[self willReturnValueFor{{{capitalized_property_name}}}];
+	{{/will_get}}
+	
+	return {{{ivar_name}}};
+}
+	{{#will_get}}
+- (void) willReturnValueFor{{{capitalized_property_name}}};
+{}
+	{{/will_get}}
+
+	{{/needs_explicit_getter}}
+
 	{{#needs_explicit_setter}}
 - (void) set{{{capitalized_property_name}}}:({{{ivar_type}}}) aNewValue;
 {

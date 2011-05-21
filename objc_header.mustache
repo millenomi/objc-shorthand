@@ -27,6 +27,9 @@
 
 {{#ivars_with_properties}}
 @property{{{property_modifiers}}} {{{outlet_marker}}} {{{ivar_type}}} {{{property_name}}};
+{{#will_get}}
+- (void) willReturnValueFor{{{capitalized_property_name}}};
+{{/will_get}}
 {{#will_set}}
 - (void) {{{property_name}}}WillChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
 {{/will_set}}

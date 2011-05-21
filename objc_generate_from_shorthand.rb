@@ -21,6 +21,14 @@ class ObjCClassTemplate < Mustache
 	def ivars_with_properties; ivars; end
 	def ivars_without_properties; []; end
 	
+	def ivars_with_properties_without_ro
+		ivars_with_properties.select { |x| not x.ivar.options.include? :ro }
+	end
+	
+	def ivars_without_properties_or_with_ro
+		ivars_with_properties.select { |x| x.ivar.options.include? :ro }
+	end
+	
 	def frameworks
 		@cls.objc_frameworks
 	end
@@ -38,7 +46,7 @@ class ObjCClassTemplate < Mustache
 	end
 	
 	def needs_legacy
-		false
+		true
 	end
 end
 
@@ -130,8 +138,16 @@ class ObjCIvarTemplate
 		ivar.options.include? :did_set
 	end
 	
+	def will_get
+		ivar.options.include? :will_get
+	end
+	
 	def needs_explicit_setter
 		will_set || did_set
+	end
+	
+	def needs_explicit_getter
+		will_get
 	end
 	
 	def is_assign
