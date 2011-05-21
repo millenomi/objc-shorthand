@@ -1,4 +1,4 @@
-Objective-C Shorthand in Ruby
+# Objective-C Shorthand in Ruby
 
 This tiny library allows boilerplate Objective-C code (in particular, property synthesis and memory management code) to be produced from a very compact Ruby DSL-ish representation of the class.
 
@@ -113,7 +113,7 @@ The rest of the parameters form the options for the ivar. The generator understa
 
 * `:retain`, `:copy`, `:assign`: Force a particular memory management mode for a property. If none is specified, the expander will try to infer a mode (eg. non-object types will get assign; properties named `delegate` or `…Delegate` will get assign etc.).
 
-* `:ro` will cause the property to be created `:readonly`.
+* `:ro` will cause the property to be created `readonly`.
 
 * `:object`: Require the type to be treated as an ObjC object type. This may be useful if you're dealing with Core Foundation or typedef'd block types.
 
