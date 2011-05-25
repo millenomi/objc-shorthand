@@ -15,7 +15,9 @@
 - (void) dealloc;
 {
 	{{#ivars_with_properties_without_ro}}
+	{{^is_assign}}
 	self.{{{property_name}}} = nil;
+	{{/is_assign}}
 	{{/ivars_with_properties_without_ro}}
 	
 	{{#ivars_without_properties_or_with_ro}}
@@ -53,7 +55,9 @@
 	if (aNewValue != {{{ivar_name}}}) {
 		
 	{{#will_set}}
-		[self {{{property_name}}}WillChangeToValue:aNewValue fromValue:{{{ivar_name}}}];
+		aNewValue = [self {{{property_name}}}WillChangeToValue:aNewValue fromValue:{{{ivar_name}}}];
+		if (aNewValue == {{{ivar_name}}})
+			return;
 	{{/will_set}}
 	{{#did_set}}
 		{{{ivar_type}}} anOldValue = {{{ivar_name}}};
@@ -80,8 +84,10 @@
 }
 
 {{#will_set}}
-- (void) {{{property_name}}}WillChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
-{}
+- ({{{ivar_type}}}) {{{property_name}}}WillChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
+{
+	return aNewValue;
+}
 {{/will_set}}
 {{#did_set}}
 - (void) {{{property_name}}}DidChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
