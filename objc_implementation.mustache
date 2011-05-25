@@ -15,7 +15,9 @@
 - (void) dealloc;
 {
 	{{#ivars_with_properties_without_ro}}
+	{{^is_assign}}
 	self.{{{property_name}}} = nil;
+	{{/is_assign}}
 	{{/ivars_with_properties_without_ro}}
 	
 	{{#ivars_without_properties_or_with_ro}}
