@@ -55,7 +55,9 @@
 	if (aNewValue != {{{ivar_name}}}) {
 		
 	{{#will_set}}
-		[self {{{property_name}}}WillChangeToValue:aNewValue fromValue:{{{ivar_name}}}];
+		aNewValue = [self {{{property_name}}}WillChangeToValue:aNewValue fromValue:{{{ivar_name}}}];
+		if (aNewValue == {{{ivar_name}}})
+			return;
 	{{/will_set}}
 	{{#did_set}}
 		{{{ivar_type}}} anOldValue = {{{ivar_name}}};
@@ -83,7 +85,9 @@
 
 {{#will_set}}
 - (void) {{{property_name}}}WillChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
-{}
+{
+	return aNewValue;
+}
 {{/will_set}}
 {{#did_set}}
 - (void) {{{property_name}}}DidChangeToValue:({{{ivar_type}}}) aNewValue fromValue:({{{ivar_type}}}) anOldValue;
